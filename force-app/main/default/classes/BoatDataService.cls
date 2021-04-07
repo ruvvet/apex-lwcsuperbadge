@@ -104,7 +104,7 @@ public with sharing class BoatDataService {
     ];
   }
 
-  @AuraEnabled(cacheable=false)
+  @AuraEnabled
   public static List<BoatReview__c> getAllReviews(Id boatId) {
     return [
       SELECT
@@ -124,7 +124,6 @@ public with sharing class BoatDataService {
     ];
   }
 
-
   // Assume this may be an API that return this data, not a SOQL query
   @AuraEnabled(cacheable=true)
   public static String getBoatsByLocation(
@@ -139,16 +138,5 @@ public with sharing class BoatDataService {
     }
     query += ' WITH SECURITY_ENFORCED ORDER BY DISTANCE(Geolocation__c, GEOLOCATION(:latitude, :longitude), \'mi\') LIMIT 10';
     return JSON.serialize(Database.query(query));
-  }
-
-  @AuraEnabled(cacheable=false)
-  public static String updateBoatList(Object data) {
-    List<Boat__c> boatsForUpdate = (List<Boat__c>) JSON.deserialize(
-      JSON.serialize(data),
-      List<Boat__c>.class
-    );
-
-    update boatsForUpdate;
-    return 'Success: Boats updated successfully';
   }
 }

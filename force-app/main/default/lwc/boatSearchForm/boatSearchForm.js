@@ -1,23 +1,38 @@
-import { LightningElement } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import ACCOUNT_OBJECT from '@salesforce/schema/Account';
-import NAME_FIELD from '@salesforce/schema/Account.Name';
-import REVENUE_FIELD from '@salesforce/schema/Account.AnnualRevenue';
-import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
+import { LightningElement,wire,track } from 'lwc';
+import getBoatTypes from "@salesforce/apex/BoatDataService.getBoatTypes";
 
 export default class BoatSearchForm extends LightningElement {
+    @track selectedBoatTypeId = '';
+    @track error = undefined;
+    @track searchOptions;
+
+    @wire(getBoatTypes)
+        boatTypes({ error, data }) {
+        if (data) {
+        this.searchOptions = data.map((type) => {
+        return {
+        label: type.Name,
+        value: type.Id
+        };
+        });
+        this.searchOptions.unshift({ label: "All Types", value: "" });
+        } else if (error) {
+        this.searchOptions = undefined;
+        this.error = error;
+        }
+    }
 
 
+    handleSearchOptionChange(event) {
+        event.preventDefault();
+        this.selectedBoatTypeId = event.detail.value;
+        const searchEvent = new CustomEvent("search", {
+        detail: {
+        boatTypeId: this.selectedBoatTypeId
+        }
+        });
+        this.dispatchEvent(searchEvent);
+     }
 
-    // objectApiName = ACCOUNT_OBJECT;
-    // fields = [NAME_FIELD, REVENUE_FIELD, INDUSTRY_FIELD];
-    // handleSuccess(event) {
-    //     const toastEvent = new ShowToastEvent({
-    //         title: "Account created",
-    //         message: "Record ID: " + event.detail.id,
-    //         variant: "success"
-    //     });
-    //     this.dispatchEvent(toastEvent);
-    // }
 
 }

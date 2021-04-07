@@ -1,19 +1,38 @@
 <template>
-    <lightning-layout multiple-rows>
-      <!-- Top -->
-      <lightning-layout-item size="12">
-        <lightning-card title="Find a Boat">
-            <lightning-button label="Neutral" title="Non-primary action" onclick={createNewBoat} class="slds-m-left_x-small"></lightning-button>
-          <p class="slds-var-p-horizontal_small">
-            <!-- boatSearchForm component goes here -->
-          </p>
-        </lightning-card>
-      </lightning-layout-item>
-      <!-- Bottom -->
-      <lightning-layout-item size="12" class="slds-p-top_small slds-is-relative">
-        <!-- Spinner goes here -->
-        <!-- boatSearchResults goes here -->
-        <!-- onloading={handleLoading} ondoneloading={handleDoneLoading} -->
-      </lightning-layout-item>
-    </lightning-layout>
-  </template>
+  <lightning-layout multiple-rows>
+    <!-- Top -->
+    <lightning-layout-item size="12">
+      <lightning-card title="Find a Boat">
+        <div slot="actions">
+          <lightning-button-icon
+            icon-name="utility:search"
+            variant="bare"
+            alternative-text="Open record"
+            onclick={createNewBoat}
+          >
+          </lightning-button-icon>
+        </div>
+        <p class="slds-var-p-horizontal_small">
+          <c-boat-search-form onsearch={searchBoats}></c-boat-search-form>
+        </p>
+      </lightning-card>
+    </lightning-layout-item>
+    <!-- Bottom -->
+    <lightning-layout-item size="12" class="slds-p-top_small slds-is-relative">
+      <!-- Spinner goes here -->
+      <template if:true={isLoading}>
+        <lightning-spinner
+          alternative-text="Loading"
+          size="medium"
+          variant="brand"
+        ></lightning-spinner>
+      </template>
+      <!-- boatSearchResults goes here -->
+      <!-- onloading={handleLoading} ondoneloading={handleDoneLoading} -->
+      <c-boat-search-results
+        onloading={handleLoading}
+        ondoneloading={handleDoneLoading}
+      ></c-boat-search-results>
+    </lightning-layout-item>
+  </lightning-layout>
+</template>

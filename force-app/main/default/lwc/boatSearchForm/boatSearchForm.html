@@ -1,9 +1,13 @@
 <template>
-    <lightning-card>
-        <lightning-record-form
-            object-api-name={objectApiName}
-            fields={fields}
-            onsuccess={handleSuccess}>
-        </lightning-record-form>
-    </lightning-card>
+  <lightning-layout>
+    <lightning-layout-item class="slds-align-middle">
+      <lightning-combobox
+        onchange={handleSearchOptionChange}
+        value={selectedBoatTypeId}
+        options={searchOptions}
+        class="slds-align-middle"
+      >
+      </lightning-combobox>
+    </lightning-layout-item>
+  </lightning-layout>
 </template>
