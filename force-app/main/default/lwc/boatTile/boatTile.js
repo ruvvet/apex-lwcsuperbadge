@@ -1,12 +1,15 @@
+// create boatTile
 import { LightningElement, api } from 'lwc';
 
 const TILE_WRAPPER_SELECTED_CLASS = 'tile-wrapper selected';
 const TILE_WRAPPER_UNSELECTED_CLASS = 'tile-wrapper'
 
 export default class BoatTile extends LightningElement {
+  // get boat data
   @api
   boat;
 
+  // get selectedBoatId
   @api
   selectedBoatId;
 

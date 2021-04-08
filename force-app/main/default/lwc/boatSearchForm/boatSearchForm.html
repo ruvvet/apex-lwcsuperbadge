@@ -1,6 +1,11 @@
+<!-- 4. build boatSearchForm component, this is a child of the boatSearch parent container -->
 <template>
   <lightning-layout>
     <lightning-layout-item class="slds-align-middle">
+      <!-- uses lightning combobox to search -->
+      <!-- options = call the boat types and map them to options that are selectable -->
+      <!-- value = the selected boatID from dropdown -->
+      <!-- onchange = handlesearchOptionChange function -->
       <lightning-combobox
         onchange={handleSearchOptionChange}
         value={selectedBoatTypeId}

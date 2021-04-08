@@ -1,10 +1,15 @@
+<!-- 2. Build Boat Message Service Channel -->
+<!-- the Lightning Message Service enables communication between Lightning Web Components, Aura Components, and Visualforce Pages  -->
+
 <?xml version="1.0" encoding="UTF-8"?>
 <LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <!-- creates a web socket, this is the master label, use this to reference the message channel  -->
+    <masterLabel>BoatMessageChannel</masterLabel>
     <description>This is a sample Lightning Message Channel for the Lightning Web Components Superbadge.</description>
     <isExposed>true</isExposed>
+    <!-- list all payload fields for the message channel -->
     <lightningMessageFields>
         <description>This is the record Id that changed</description>
         <fieldName>recordId</fieldName>
     </lightningMessageFields>
-    <masterLabel>BoatMessageChannel</masterLabel>
 </LightningMessageChannel>

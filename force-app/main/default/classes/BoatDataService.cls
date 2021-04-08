@@ -1,3 +1,7 @@
+// 3. add reference methods and annotations so they can be accessed properly.
+// @AuraEnabled(cacheable=true) gives LWC access to Apex methods/properties
+// need to call apex methods with LWC, so ...
+
 public with sharing class BoatDataService {
   public static final String LENGTH_TYPE = 'Length';
   public static final String PRICE_TYPE = 'Price';
