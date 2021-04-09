@@ -1,18 +1,27 @@
-# Salesforce DX Project: Next Steps
+# Notes:
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+### renderedCallback() vs connectedCallback()
+- connectedCallback()
+  - can fire more than once
+  - The connected callback is executed when the component is inserted into DOM. Connected callback runs once when the component is inserted.
+  - Executes when component is loaded
+  - Execution flow = parent > child. Cannot access child elements because they have not rendered yet
 
-## How Do You Plan to Deploy Your Changes?
+- renderedCallback()
+  - use when there is logic that needs to be performed after a component is done rendering
+  - This gets called when the component is rendered. Basically when all the elements on the component are inserted.
+  - Re-renders when any property/data being passed in is changed.
+  - Execution flow = child > parent. renderedcallbacks of all children are executed before parent
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+### LWC vs Aura
+ - LWC <c-custom-component> === Aura:
+ - LWC can be nested inside aura, but aura cannot be nested inside an LWC
+ - LWC is better because its built on top of web features and has better performance
 
-## Configure Your Salesforce DX Project
+### Importing a 3rd party library
+  1. add the lib to a static resource
+  2. add sattic resource to component
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-## Read All About It
-
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+### share JS code between LWC + Aura
+ - create ES6 module with code
+ - then import and reference in the components JS file
